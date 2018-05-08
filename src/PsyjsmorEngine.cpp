@@ -199,20 +199,18 @@ void PsyjsmorEngine::UnDrawStrings()
 	CopyBackgroundPixels(0, 0, GetWindowWidth(), GetWindowHeight());
 }
 
-void PsyjsmorEngine::DrawStringsUnderneath()
-{
-	if (m_pPlayer->currCooldown >= 0)
-	{
-		char buf[64];
-		sprintf(buf, "%d", (int)m_pPlayer->currCooldown/4);
-		DrawForegroundString(340, 530, "Cooldown:", 0xFFFFFF, NULL);
-		DrawForegroundString(460, 530, buf, 0xFFFFFF, NULL);
-	}
-}
-
 void PsyjsmorEngine::DrawStringsOnTop()
 {
 	char buf[64];
+
+	if (m_pPlayer->currCooldown >= 0)
+	{
+		char buf[64];
+		sprintf(buf, "%d", (int)m_pPlayer->currCooldown / 4);
+		DrawForegroundString(340, 530, "Cooldown:", 0xFFFFFF, NULL);
+		DrawForegroundString(460, 530, buf, 0xFFFFFF, NULL);
+	}
+
 	sprintf(buf, "%d", points);
 	DrawForegroundString(40, 10, "Points:", 0xFFFFFF, NULL);
 	DrawForegroundString(140, 10, buf, 0xFFFFFF, NULL);
@@ -245,6 +243,13 @@ void PsyjsmorEngine::DrawStringsOnTop()
 				DrawForegroundString(135, 303, "You have completed the game with    points!", 0xFFFFFF, NULL);
 			DrawForegroundString(563, 303, buf, 0xFFFFFF, NULL);
 			DrawForegroundString(165, 326, "Press SPACE to restart or ESC to exit.", 0xFFFFFF, NULL);
+
+			std::ofstream scores;
+			char scoreBuf[8];
+			sprintf(scoreBuf, "%d", points);
+			scores.open("scores.txt", std::ios_base::app);
+			scores << "Score: " << scoreBuf << std::endl;
+			scores.close();
 		}
 		else
 		{

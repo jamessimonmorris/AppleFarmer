@@ -25,7 +25,6 @@ public:
 	int InitialiseObjects();
 	void GameAction();
 	void UnDrawStrings();
-	void DrawStringsUnderneath();
 	void DrawStringsOnTop();
 	void MouseDown(int, int, int);
 	virtual void KeyDown(int iKeyCode);
